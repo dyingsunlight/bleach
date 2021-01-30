@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Authorization</title>
+</head>
+<body>
+
+</body>
+<script>
+  const getLogger = () => {
+    const loggerElement = document.createElement('div')
+    document.body.append(loggerElement)
+    return (...msg) => {
+      loggerElement.innerHTML += msg.join('<br />')
+    }
+  }
+
+  const logger = getLogger()
+  const url = new URL(document.location.href)
+  const code = url.searchParams.get('code')
+  logger('Code: ', code)
+  logger('Sample ', `
+fetch('https://github.com/login/oauth/access_token?client_id=Iv1.100d0393a4ee4899&code=${code}&client_secret=[client_secret]', {
+  method: 'post',
+})
+.then(res => res.json())
+.then(json => console.log(json))`
+  )
+</script>
+</html>
